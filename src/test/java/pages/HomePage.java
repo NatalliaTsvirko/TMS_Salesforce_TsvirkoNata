@@ -8,6 +8,7 @@ public class HomePage extends BasePage {
 
     final static By SALES_LABEL = By.xpath("//*[@title='Sales']");
     final static By ACCOUNTS_MENU_LINK = By.xpath("//*[@title='Accounts']");
+    final static By CONTACTS_MENU_LINK = By.xpath("//*[@title='Contacts']");
 
 
     public HomePage(WebDriver driver) {
@@ -28,6 +29,11 @@ public class HomePage extends BasePage {
     public AccountsPage clickAccountMenuLink() {
         jsClick(driver.findElement(ACCOUNTS_MENU_LINK));
         return new AccountsPage(driver);
+    }
+
+    public ContactsPage clickContactsMenuLink() {
+        jsClick(driver.findElement(CONTACTS_MENU_LINK));
+        return new ContactsPage(driver);
     }
 }
 

@@ -1,15 +1,17 @@
 package tests;
 
+
+import com.github.javafaker.Faker;
 import enums.AccountIndustry;
 import enums.AccountType;
 import modals.AccountModal;
 import models.Account;
-import models.AccountBuilder;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pages.AccountDetailsPage;
 import pages.AccountsPage;
 import pages.HomePage;
+import utils.AccountsGenerator;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -20,6 +22,9 @@ public class CreateAccountTest extends BaseTest {
     AccountsPage accountsPage;
     AccountDetailsPage accountDetailsPage;
     AccountModal accountModal;
+    Account testAccount;
+    AccountsGenerator accountsGenerator;
+
 
     @BeforeClass
     public void initializePages() {
@@ -27,47 +32,74 @@ public class CreateAccountTest extends BaseTest {
         accountsPage = new AccountsPage(driver);
         accountDetailsPage = new AccountDetailsPage(driver);
         accountModal = new AccountModal(driver);
-
+        accountsGenerator = new AccountsGenerator();
     }
 
     @Test
     public void createAccountWithAllData() {
-        Account testAccount;
-        testAccount = new AccountBuilder()
-                .withAccountName("Nat")
-                .withPhone("+3453455435435")
-                .withParentAccount("My Account")
-                .withFax("fax")
-                .withWebsite("website")
-                .withType(AccountType.CUSTOMER)
-                .withIndustry(AccountIndustry.UTILITIES)
-                .withEmployees("885")
-                .withAnnualRevenue("556")
-                .withBillingStreet("A")
-                .withShippingStreet("k")
-                .withBillingCity("City")
-                .withShippingCity("ShipCity")
-                .withBillingStateProvince("3365")
-                .withShippingStateProvince("33256")
-                .withBillingZipPostalCode("33254")
-                .withShippingZipPostalCode("55487")
-                .withBillingCountry("Country")
-                .withShippingCountry("SCountry")
-                .withDescription("Hello")
+        log.trace("trace");
+        log.debug("debug");
+        log.info("info");
+        log.error("error");
+        log.fatal("fatal");
+
+        Faker faker = new Faker();
+        testAccount = Account.builder()
+                .accountName(faker.name().firstName())
+                .phone("+3453455435435")
+                .parentAccount("My Account")
+                .fax("fax")
+                .website("website")
+                .type(AccountType.CUSTOMER)
+                .industry(AccountIndustry.UTILITIES)
+                .employees("885")
+                .annualRevenue("$556")
+                .billingStreet("A")
+                .shippingStreet("k")
+                .billingCity("City")
+                .shippingCity("ShipCity")
+                .billingStateProvince("3365")
+                .shippingStateProvince("33256")
+                .billingZipPostalCode("33254")
+                .shippingZipPostalCode("55487")
+                .billingCountry("Country")
+                .shippingCountry("SCountry")
+                .description("Hello")
                 .build();
         boolean isloggedIn = loginPage.open().login(USERNAME, PASSWORD).isPageOpened();
         assertTrue(isloggedIn);
-        boolean isHomePageOpened = homePage.open().isPageOpened();
-        assertTrue(isHomePageOpened);
         homePage.clickAccountMenuLink()
-                .clickNewButton();
-        accountModal.waitUntilElementVisible();
-        accountModal.fillForm(testAccount)
+                .clickNewButton()
+                .fillForm(testAccount)
                 .clickSaveButton();
-        assertTrue(accountsPage.notificationMessage());
-        accountDetailsPage.waitUntilElementVisible();
+        accountsPage.veryfiNotificationMessage();
         Account actualAccountDetailsInfo = accountsPage.openDetailsTab()
                 .getAccountDetailsInfo();
         assertEquals(actualAccountDetailsInfo, testAccount, "Account details don't match test account data");
     }
+
+    @Test
+    public void createAccountWithAccountName() {
+        log.trace("trace");
+        log.debug("debug");
+        log.info("info");
+        log.error("error");
+        log.fatal("fatal");
+
+        Faker faker = new Faker();
+        testAccount = Account.builder()
+                .accountName(faker.name().firstName())
+                .build();
+        boolean isloggedIn = loginPage.open().login(USERNAME, PASSWORD).isPageOpened();
+        assertTrue(isloggedIn);
+        homePage.clickAccountMenuLink()
+                .clickNewButton()
+                .fillForm(testAccount)
+                .clickSaveButton();
+        accountsPage.veryfiNotificationMessage();
+        Account actualAccountDetailsInfo = accountsPage.openDetailsTab()
+                .getAccountDetailsInfo();
+        assertEquals(actualAccountDetailsInfo, testAccount, "Account details don't match test account data");
+    }
+
 }

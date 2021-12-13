@@ -16,4 +16,5 @@ public class TextArea extends BaseElement {
         driver.findElement(By
                 .xpath(String.format(textAreaElementLocator, label))).sendKeys(text);
     }
+
 }

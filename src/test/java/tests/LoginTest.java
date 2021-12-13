@@ -12,6 +12,12 @@ public class LoginTest extends BaseTest{
 
     @Test
     public void positiveLogin(){
+        log.trace("trace");
+        log.debug("debug");
+        log.info("info");
+        log.error("error");
+        log.fatal("fatal");
+
         boolean isLoggedIn = loginPage.open().login(USERNAME,PASSWORD).isPageOpened();
         assertTrue(isLoggedIn);
     }
@@ -19,6 +25,12 @@ public class LoginTest extends BaseTest{
 //Work on lecture
     @Test
     public void positiveLoginSecond(){
+        log.trace("trace");
+        log.debug("debug");
+        log.info("info");
+        log.error("error");
+        log.fatal("fatal");
+
         boolean isLoggedIn = loginPage.open().login(USERNAME,PASSWORD).isPageOpened();
         assertTrue(isLoggedIn);
         HomePage homePage = new HomePage(driver);

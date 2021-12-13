@@ -1,6 +1,8 @@
 package tests;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -10,12 +12,15 @@ import pages.LoginPage;
 
 import java.util.concurrent.TimeUnit;
 
+
 public class BaseTest {
     protected static final String USERNAME = "valmochka1-c8qw@force.com";
     protected static final String PASSWORD = "Tsvirko2016";
+    protected static final Logger log = LogManager.getLogger(BaseTest.class.getName());
 
     protected WebDriver driver;
     protected LoginPage loginPage;
+
 
     @BeforeClass(alwaysRun = true)
     public void setUp() {
@@ -29,6 +34,7 @@ public class BaseTest {
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
         loginPage = new LoginPage(driver);
+
     }
 
     @AfterClass(alwaysRun = true)

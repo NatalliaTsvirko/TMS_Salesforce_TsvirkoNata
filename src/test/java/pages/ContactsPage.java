@@ -1,20 +1,19 @@
 package pages;
 
-import modals.AccountModal;
+import modals.ContactsModal;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-
-
-public class AccountsPage extends BasePage {
-
+public class ContactsPage extends  BasePage{
     final By NEW_BUTTON = By.cssSelector("a[title=New]");
     final By DETAILS_TAB = By.xpath("//div[contains(@class,'active')]//*[@id='detailTab__item']");
     final By SUCCESS_MESSAGE = By.xpath("//div[@class='forceVisualMessageQueue']//*[contains(@class,'slds-theme--succes')]");
 
-    public AccountsPage(WebDriver driver) {
+
+
+    public ContactsPage(WebDriver driver) {
         super(driver);
     }
 
@@ -24,19 +23,19 @@ public class AccountsPage extends BasePage {
     }
 
     @Override
-    public AccountsPage open() {
-        driver.get(BASE_URL + "/lightning/r/Account/0015j00000B1kO5AAJ/view");
+    public ContactsPage open() {
+        driver.get(BASE_URL + "lightning/o/Contact/list?filterName=Recent");
         return this;
     }
 
-    public AccountModal clickNewButton() {
+    public ContactsModal clickNewButton() {
         driver.findElement(NEW_BUTTON).click();
-        return new AccountModal(driver);
+        return new ContactsModal(driver);
     }
 
-    public AccountDetailsPage openDetailsTab() {
+    public ContactDetailsPage openDetailsTab() {
         driver.findElement(DETAILS_TAB);
-        return new AccountDetailsPage(driver);
+        return new ContactDetailsPage(driver);
     }
 
     public boolean veryfiNotificationMessage() {
@@ -48,4 +47,3 @@ public class AccountsPage extends BasePage {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
     }
 }
-

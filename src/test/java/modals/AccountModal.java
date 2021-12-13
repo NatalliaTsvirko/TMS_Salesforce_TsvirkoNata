@@ -22,28 +22,85 @@ public class AccountModal extends BaseModal {
 
     public AccountModal fillForm(Account account) {
 
-        if (account.getAccountName() != null) {
+        if(account.getAccountName()!= null){
             new Input(driver, "Account Name").write(account.getAccountName());
         }
-        new Input(driver, "Phone").write(account.getPhone());
-        new Input(driver, "Parent Account").write(account.getParentAccount());
-        new Input(driver, "Fax").write(account.getFax());
-        new Input(driver, "Website").write(account.getWebsite());
-        new Dropdown(driver, "Type").selectOption(account.getType().getName());
-        new Dropdown(driver, "Industry").selectOption(account.getIndustry().getName());
-        new Input(driver, "Employees").write(account.getEmployees());
-        new Input(driver, "Annual Revenue").write(account.getAnnualRevenue());
-        new TextArea(driver, "Description").write(account.getDescription());
-        new TextArea(driver, "Billing Street").write(account.getBillingStreet());
-        new TextArea(driver, "Shipping Street").write(account.getShippingStreet());
-        new Input(driver, "Billing City").write(account.getBillingCity());
-        new Input(driver, "Shipping City").write(account.getShippingCity());
-        new Input(driver, "Billing State/Province").write(account.getBillingStateProvince());
-        new Input(driver, "Shipping State/Province").write(account.getShippingStateProvince());
-        new Input(driver, "Billing Zip/Postal Code").write(account.getBillingZipPostalCode());
-        new Input(driver, "Shipping Zip/Postal Code").write(account.getShippingZipPostalCode());
-        new Input(driver, "Billing Country").write(account.getBillingCountry());
-        new Input(driver, "Shipping Country").write(account.getShippingCountry());
+
+        if(account.getPhone()!= null){
+            new Input(driver, "Phone").write(account.getPhone());
+        }
+
+        if(account.getParentAccount()!= null){
+            new Input(driver, "Parent Account").write(account.getParentAccount());
+        }
+
+        if(account.getFax()!= null){
+            new Input(driver, "Fax").write(account.getFax());
+        }
+
+        if(account.getWebsite()!= null){
+            new Input(driver, "Website").write(account.getWebsite());
+        }
+
+        if(account.getType()!= null){
+            new Dropdown(driver, "Type").selectOption(account.getType().getName());
+        }
+
+        if(account.getIndustry()!= null){
+            new Dropdown(driver, "Industry").selectOption(account.getIndustry().getName());
+        }
+
+        if(account.getEmployees()!= null){
+            new Input(driver, "Employees").write(account.getEmployees());
+        }
+
+        if(account.getAnnualRevenue()!= null){
+            new Input(driver, "Annual Revenue").write(account.getAnnualRevenue());
+        }
+
+        if(account.getDescription()!= null){
+            new TextArea(driver, "Description").write(account.getDescription());
+        }
+
+        if(account.getBillingStreet()!= null){
+            new TextArea(driver, "Billing Street").write(account.getBillingStreet());
+        }
+
+        if(account.getShippingStreet()!= null){
+            new TextArea(driver, "Shipping Street").write(account.getShippingStreet());
+        }
+
+        if(account.getBillingCity()!= null){
+            new Input(driver, "Billing City").write(account.getBillingCity());
+        }
+
+        if(account.getShippingCity()!= null){
+            new Input(driver, "Shipping City").write(account.getShippingCity());
+        }
+
+        if(account.getBillingStateProvince()!= null){
+            new Input(driver, "Billing State/Province").write(account.getBillingStateProvince());
+        }
+
+        if(account.getShippingStateProvince()!= null){
+            new Input(driver, "Shipping State/Province").write(account.getShippingStateProvince());
+        }
+
+        if(account.getBillingZipPostalCode()!= null){
+            new Input(driver, "Billing Zip/Postal Code").write(account.getBillingZipPostalCode());
+        }
+
+        if(account.getShippingZipPostalCode()!= null){
+            new Input(driver, "Shipping Zip/Postal Code").write(account.getShippingZipPostalCode());
+        }
+
+        if(account.getBillingCountry()!= null){
+            new Input(driver, "Billing Country").write(account.getBillingCountry());
+        }
+
+        if(account.getShippingCountry()!= null){
+            new Input(driver, "Shipping Country").write(account.getShippingCountry());
+        }
         return this;
     }
 
