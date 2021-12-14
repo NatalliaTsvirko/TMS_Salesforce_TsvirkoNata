@@ -28,6 +28,7 @@ public class LoginPage extends BasePage {
         driver.findElement(EMAIL_INPUT).sendKeys(email);
         driver.findElement(PASSWORD_INPUT).sendKeys(password);
         driver.findElement(LOGIN_BUTTON).click();
+        log.info("open home page");
         return new HomePage(driver);
     }
 }

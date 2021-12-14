@@ -28,11 +28,13 @@ public class HomePage extends BasePage {
 
     public AccountsPage clickAccountMenuLink() {
         jsClick(driver.findElement(ACCOUNTS_MENU_LINK));
+        log.info("open account page");
         return new AccountsPage(driver);
     }
 
     public ContactsPage clickContactsMenuLink() {
         jsClick(driver.findElement(CONTACTS_MENU_LINK));
+        log.info("open contacts page");
         return new ContactsPage(driver);
     }
 }

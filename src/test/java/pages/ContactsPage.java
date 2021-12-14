@@ -30,16 +30,19 @@ public class ContactsPage extends  BasePage{
 
     public ContactsModal clickNewButton() {
         driver.findElement(NEW_BUTTON).click();
+        log.info("open contacts modal");
         return new ContactsModal(driver);
     }
 
     public ContactDetailsPage openDetailsTab() {
-        driver.findElement(DETAILS_TAB);
+        driver.findElement(DETAILS_TAB).click();
+        log.info("open details contacts table");
         return new ContactDetailsPage(driver);
     }
 
     public boolean veryfiNotificationMessage() {
         WebElement successMessage = driver.findElement(SUCCESS_MESSAGE);
+        log.info("wait notification message ");
         return successMessage.isDisplayed();
     }
 

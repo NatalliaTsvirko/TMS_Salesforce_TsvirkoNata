@@ -31,16 +31,19 @@ public class AccountsPage extends BasePage {
 
     public AccountModal clickNewButton() {
         driver.findElement(NEW_BUTTON).click();
+        log.info("open account modal");
         return new AccountModal(driver);
     }
 
     public AccountDetailsPage openDetailsTab() {
-        driver.findElement(DETAILS_TAB);
+        driver.findElement(DETAILS_TAB).click();
+        log.info("open details table");
         return new AccountDetailsPage(driver);
     }
 
     public boolean veryfiNotificationMessage() {
         WebElement successMessage = driver.findElement(SUCCESS_MESSAGE);
+        log.info("wait notification message ");
         return successMessage.isDisplayed();
     }
 

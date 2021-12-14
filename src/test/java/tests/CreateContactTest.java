@@ -44,7 +44,7 @@ public class CreateContactTest extends BaseTest {
         testContacts = Contacts.builder()
                 .firstName(faker.name().firstName())
                 .lastName(faker.name().lastName())
-                .accountName("Keli")
+                .accountName(contactsModal.openAccountNameFilter("Kaili"))
                 .title("yyyy")
                 .phone(faker.phoneNumber().cellPhone())
                 .mobile(faker.phoneNumber().cellPhone())
