@@ -1,43 +1,17 @@
 package tests;
 
-import modals.AccountModal;
+import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.Test;
-import pages.AccountsPage;
-import pages.HomePage;
-
 
 import static org.testng.Assert.assertTrue;
 
-public class LoginTest extends BaseTest{
+@Log4j2
+public class LoginTest extends BaseTest {
 
-    @Test
-    public void positiveLogin(){
-        log.trace("trace");
-        log.debug("debug");
-        log.info("info");
-        log.error("error");
-        log.fatal("fatal");
-
-        boolean isLoggedIn = loginPage.open().login(USERNAME,PASSWORD).isPageOpened();
+    @Test(description = "Login users with valid data",groups = {"Smoke"})
+    public void positiveLogin() {
+        log.info("Login users");
+        boolean isLoggedIn = loginPage.open().login(USERNAME, PASSWORD).isPageOpened();
         assertTrue(isLoggedIn);
-    }
-
-//Work on lecture
-    @Test
-    public void positiveLoginSecond(){
-        log.trace("trace");
-        log.debug("debug");
-        log.info("info");
-        log.error("error");
-        log.fatal("fatal");
-
-        boolean isLoggedIn = loginPage.open().login(USERNAME,PASSWORD).isPageOpened();
-        assertTrue(isLoggedIn);
-        HomePage homePage = new HomePage(driver);
-        homePage.clickAccountMenuLink();
-        AccountsPage accountsPage = new AccountsPage(driver);
-        accountsPage.clickNewButton();
-        AccountModal accountModal = new AccountModal(driver);
-        accountModal.clickSaveButton();
     }
 }

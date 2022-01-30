@@ -2,8 +2,7 @@ package tests;
 
 
 import com.github.javafaker.Faker;
-import enums.AccountIndustry;
-import enums.AccountType;
+import lombok.extern.log4j.Log4j2;
 import modals.AccountModal;
 import models.Account;
 import org.testng.annotations.BeforeClass;
@@ -12,10 +11,12 @@ import pages.AccountDetailsPage;
 import pages.AccountsPage;
 import pages.HomePage;
 import utils.AccountsGenerator;
+import utils.AllureUtils;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
+@Log4j2
 public class CreateAccountTest extends BaseTest {
 
     HomePage homePage;
@@ -35,68 +36,41 @@ public class CreateAccountTest extends BaseTest {
         accountsGenerator = new AccountsGenerator();
     }
 
-    @Test
+    @Test(description = "Create account with all data",groups = {"Smoke"})
     public void createAccountWithAllData() {
-        log.trace("trace");
-        log.debug("debug");
-        log.info("info");
-        log.error("error");
-        log.fatal("fatal");
-
-        Faker faker = new Faker();
-        testAccount = Account.builder()
-                .accountName(faker.name().firstName())
-                .phone("+3453455435435")
-                .parentAccount("My Account")
-                .fax("fax")
-                .website("website")
-                .type(AccountType.CUSTOMER)
-                .industry(AccountIndustry.UTILITIES)
-                .employees("885")
-                .annualRevenue("$556")
-                .billingStreet("A")
-                .shippingStreet("k")
-                .billingCity("City")
-                .shippingCity("ShipCity")
-                .billingStateProvince("3365")
-                .shippingStateProvince("33256")
-                .billingZipPostalCode("33254")
-                .shippingZipPostalCode("55487")
-                .billingCountry("Country")
-                .shippingCountry("SCountry")
-                .description("Hello")
-                .build();
         boolean isloggedIn = loginPage.open().login(USERNAME, PASSWORD).isPageOpened();
         assertTrue(isloggedIn);
+        AllureUtils.attachScreenshot(driver);
+        log.info("opening account page");
         homePage.clickAccountMenuLink()
-                .clickNewButton()
-                .fillForm(testAccount)
-                .clickSaveButton();
-        accountsPage.veryfiNotificationMessage();
+                .clickNewButton();
+        log.info("fill account modal form with all data");
+        AccountModal testAccount = accountModal.fillForm(accountsGenerator.getAccountWithAllData());
+        accountModal .clickSaveButton();
+        AllureUtils.attachScreenshot(driver);
+        accountsPage.verifyNotificationMessage();
         Account actualAccountDetailsInfo = accountsPage.openDetailsTab()
                 .getAccountDetailsInfo();
         assertEquals(actualAccountDetailsInfo, testAccount, "Account details don't match test account data");
     }
 
-    @Test
+    @Test(description = "Create account only with account name",groups = {"Negative"})
     public void createAccountWithAccountName() {
-        log.trace("trace");
-        log.debug("debug");
-        log.info("info");
-        log.error("error");
-        log.fatal("fatal");
-
         Faker faker = new Faker();
         testAccount = Account.builder()
                 .accountName(faker.name().firstName())
                 .build();
         boolean isloggedIn = loginPage.open().login(USERNAME, PASSWORD).isPageOpened();
         assertTrue(isloggedIn);
+        AllureUtils.attachScreenshot(driver);
+        log.info("opening account page and fill account modal form with account name");
         homePage.clickAccountMenuLink()
                 .clickNewButton()
                 .fillForm(testAccount)
                 .clickSaveButton();
-        accountsPage.veryfiNotificationMessage();
+        AllureUtils.attachScreenshot(driver);
+        log.info("verify notification message");
+        accountsPage.verifyNotificationMessage();
         Account actualAccountDetailsInfo = accountsPage.openDetailsTab()
                 .getAccountDetailsInfo();
         assertEquals(actualAccountDetailsInfo, testAccount, "Account details don't match test account data");

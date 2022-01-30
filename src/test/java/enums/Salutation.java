@@ -1,6 +1,6 @@
 package enums;
 
-public enum ContactsSalutation {
+public enum Salutation {
     MR("Mr."),
     MS("Ms."),
     MRS("Mrs."),
@@ -9,12 +9,12 @@ public enum ContactsSalutation {
 
     private String text;
 
-    ContactsSalutation(String name) {
+    Salutation(String name) {
         this.text = name;
     }
 
-    public static ContactsSalutation fromString(String text) {
-        for (ContactsSalutation b : ContactsSalutation.values()) {
+    public static Salutation fromString(String text) {
+        for (Salutation b : Salutation.values()) {
             if (b.text.equalsIgnoreCase(text)) {
                 return b;
             }
