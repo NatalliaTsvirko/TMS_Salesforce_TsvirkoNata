@@ -1,40 +1,43 @@
 package tests;
 
-import io.qameta.allure.Step;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
-import org.testng.ITestContext;
-import org.testng.annotations.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import pages.LoginPage;
-import utils.PropertyReader;
 
 import java.util.concurrent.TimeUnit;
 
-@Listeners(TestListener.class)
+
 public class BaseTest {
-
-    String USERNAME = System.getenv().getOrDefault("USER_NAME", PropertyReader.getProperty("salesforce.username"));
-    String PASSWORD = System.getenv().getOrDefault("USER_PASSWORD", PropertyReader.getProperty("salesforce.password"));
-
+    protected static final String USERNAME = "valmochka1-c8qw@force.com";
+    protected static final String PASSWORD = "Tsvirko2016";
+    protected static final Logger log = LogManager.getLogger(BaseTest.class.getName());
 
     protected WebDriver driver;
     protected LoginPage loginPage;
 
-    @Parameters({"browser"})
-    @BeforeClass(alwaysRun = true)
-    @Step("Open browser")
-    public void setUp(ITestContext testContext, @Optional("chrome") String browser) {
 
-        driver = DriverFactory.getDriver(browser);
-        testContext.setAttribute("driver", driver);
+    @BeforeClass(alwaysRun = true)
+    public void setUp() {
+        WebDriverManager.chromedriver().setup();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--ignore-certificate-errors");
+        options.addArguments("--disable-popup-blocking");
+        options.addArguments("--disable-notifications");
+        driver = new ChromeDriver(options);
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(7, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
         loginPage = new LoginPage(driver);
 
     }
 
     @AfterClass(alwaysRun = true)
-    @Step("Close browser")
     public void tearDown() {
         driver.quit();
     }

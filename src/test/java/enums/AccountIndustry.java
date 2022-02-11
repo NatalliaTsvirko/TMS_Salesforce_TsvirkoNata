@@ -1,6 +1,6 @@
 package enums;
 
-public enum Industry {
+public enum AccountIndustry {
 
     AGRICULTURE("Agriculture"),
     APPAREL("Apparel"),
@@ -17,7 +17,7 @@ public enum Industry {
     ENTERTAINMENT("Entertainment"),
     ENVIRONMENTAL("Environmental"),
     FINANCE("Finance"),
-    FOOD_AND_BEVERAGE("Food & Beverage"),
+    FOODBEVERAGE("Food & Beverage"),
     GOVERNMENT("Government"),
     HEALTHCARE("Healthcare"),
     HOSPITALITY("Hospitality"),
@@ -25,24 +25,25 @@ public enum Industry {
     MACHINERY("Machinery"),
     MANUFACTURING("Manufacturing"),
     MEDIA("Media"),
-    NOT_FOR_PROFIT("Not For Profit"),
-    OTHER("Other"),
+    NOTFORPROFIT("Not For Profit"),
     RECREATION("Recreation"),
     RETAIL("Retail"),
     SHIPPING("Shipping"),
     TECHNOLOGY("Technology"),
     TELECOMMUNICATIONS("Telecommunications"),
     TRANSPORTATION("Transportation"),
-    UTILITIES("Utilities");
+    UTILITIES("Utilities"),
+    OTHER("Other");
+
 
     private String text;
 
-    Industry(String text) {
+    AccountIndustry(String text) {
         this.text = text;
     }
 
-    public static Industry fromString(String text) {
-        for (Industry b : Industry.values()) {
+    public static AccountIndustry fromString(String text) {
+        for (AccountIndustry b : AccountIndustry.values()) {
             if (b.text.equalsIgnoreCase(text)) {
                 return b;
             }

@@ -1,6 +1,6 @@
 package models;
 
-import enums.Industry;
+import enums.AccountIndustry;
 import enums.AccountType;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +15,7 @@ public class Account {
     private String fax;
     private String website;
     private AccountType type;
-    private Industry industry;
+    private AccountIndustry industry;
     private String employees;
     private String annualRevenue;
     private String billingStreet;

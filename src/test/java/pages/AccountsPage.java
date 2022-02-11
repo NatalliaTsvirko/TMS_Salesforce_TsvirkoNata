@@ -1,14 +1,13 @@
 package pages;
 
-import io.qameta.allure.Step;
-import lombok.extern.log4j.Log4j2;
 import modals.AccountModal;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 
-@Log4j2
+
 public class AccountsPage extends BasePage {
 
     final By NEW_BUTTON = By.cssSelector("a[title=New]");
@@ -26,27 +25,30 @@ public class AccountsPage extends BasePage {
 
     @Override
     public AccountsPage open() {
-        driver.get(BASE_URL + "/lightning/o/Account/list?filterName=Recent");
+        driver.get(BASE_URL + "/lightning/r/Account/0015j00000B1kO5AAJ/view");
         return this;
     }
-    @Step("Click 'new' button on account page")
+
     public AccountModal clickNewButton() {
-        log.info("clicking new button on account page");
         driver.findElement(NEW_BUTTON).click();
+        log.info("open account modal");
         return new AccountModal(driver);
     }
-    @Step("Open detail page after creating an account")
+
     public AccountDetailsPage openDetailsTab() {
-        log.info("open details table");
         driver.findElement(DETAILS_TAB).click();
+        log.info("open details table");
         return new AccountDetailsPage(driver);
     }
-    @Step("Verify notification message 'account is created' ")
-    public boolean verifyNotificationMessage() {
-        log.info("wait notification message ");
+
+    public boolean veryfiNotificationMessage() {
         WebElement successMessage = driver.findElement(SUCCESS_MESSAGE);
+        log.info("wait notification message ");
         return successMessage.isDisplayed();
     }
 
+    public void scrollIntoView(WebElement element) {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+    }
 }
 
