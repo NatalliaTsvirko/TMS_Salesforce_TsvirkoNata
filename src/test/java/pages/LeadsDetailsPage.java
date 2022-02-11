@@ -41,81 +41,70 @@ public class LeadsDetailsPage extends BasePage {
 
         Leads leads = Leads.builder().build();
 
-        log.info("get text salutation");
+        log.info(String.format("Filling form with account info: $s", leads));
+
+
         LeadStatus leadsLeadStatus = LeadStatus.fromString(new LightningFormattedElement(driver, "Lead Status").getText());
         if (leadsLeadStatus != null) {
             leads.setLeadStatus(leadsLeadStatus);
         }
 
-        log.info("get text leads name");
-        String leadstName = new LightningFormattedElement(driver, "Name").getText();
-        if (leadstName != "") {
-            leads.setLastName(leadstName);
+
+        String leadsName = new LightningFormattedElement(driver, "Name").getText();
+        if (leadsName != "") {
+            leads.setLastName(leadsName);
         }
 
-        log.info("get text leads title");
         String leadsTitle = new LightningFormattedElement(driver, "Titel").getText();
         if (leadsTitle != "") {
             leads.setTitle(leadsTitle);
         }
 
-        log.info("get text leads email");
         String leadsEmail = new LightningFormattedElement(driver, "Email").getText();
         if (leadsEmail != "") {
             leads.setEmail(leadsEmail);
         }
 
-        log.info("get text leads phone");
         String leadsPhone = new LightningFormattedElement(driver, "Phone").getText();
         if (leadsPhone != "") {
             leads.setPhone(leadsPhone);
         }
 
-        log.info("get text leads mobile");
         String leadsMobile = new LightningFormattedElement(driver, "Mobile").getText();
         if (leadsMobile != "") {
             leads.setMobile(leadsMobile);
         }
 
-
-        log.info("get text rating");
         Rating leadsRating = Rating.fromString(new LightningFormattedElement(driver, "Rating").getText());
         if (leadsRating != null) {
             leads.setRating(leadsRating);
         }
 
-
-        log.info("get text leads website");
         String leadsWebsite = new LightningFormattedElement(driver, "Website").getText();
         if (leadsWebsite != "") {
             leads.setWebsite(leadsWebsite);
         }
 
-        log.info("get text leads company");
         String leadsCompany = new LightningFormattedElement(driver, "Company").getText();
         if (leadsCompany != "") {
             leads.setCompany(leadsCompany);
         }
 
-        log.info("get text leads industry");
         Industry leadsIndustry = Industry.fromString(new LightningFormattedElement(driver, "Company").getText());
         if (leadsIndustry != null) {
             leads.setIndustry(leadsIndustry);
         }
 
-        log.info("get text leads No. of Employee");
         String leadsNoOfEmployee = new LightningFormattedElement(driver, "No. of Employee").getText();
         if (leadsNoOfEmployee != null) {
             leads.setNumberOfEmployee(leadsNoOfEmployee);
         }
 
-        log.info("get text leads Lead Source");
         LeadSource leadsLeadSource = LeadSource.fromString(new LightningFormattedElement(driver, "Lead Source").getText());
         if (leadsLeadSource != null) {
             leads.setLeadSource(leadsLeadSource);
         }
 
-        log.info("get text leads address");
         String leadsAddress = new LightningFormattedElement(driver, "Address").getText();
         if (leadsAddress != "") {
             leads.setSearchAddress(leadsAddress);
@@ -124,6 +113,7 @@ public class LeadsDetailsPage extends BasePage {
         return leads;
 
     }
+
     @Step("Click button 'status'")
     public void clickButtonStatus() {
         log.info("clicking button status complete");
@@ -147,5 +137,4 @@ public class LeadsDetailsPage extends BasePage {
         return createdLeadsMessage;
 
     }
-
 }

@@ -8,9 +8,13 @@ import org.openqa.selenium.WebElement;
 
 public class LeadsPage extends BasePage {
 
+    private String listLocator = "//a[contains(@class,'rowActionsPlaceHolder')]";
+    private String optionLocator = "//ul[@class='scrollable']//a[@title='Delete']";
     final By NEW_BUTTON = By.cssSelector("a[title=New]");
+    final By DELETE_BUTTON = By.xpath("//button[@title='Delete']");
     final By DETAILS_TAB = By.xpath("//div[contains(@class,'active')]//*[@id='detailTab__item']");
     final By SUCCESS_MESSAGE = By.xpath("//div[@class='forceVisualMessageQueue']//*[contains(@class,'slds-theme--succes')]");
+    final By LEADS_NAME = By.xpath("//a[text()='%s']/ancestor::div[contains(@class,'listViewContainer ')]");
 
     public LeadsPage(WebDriver driver) {
         super(driver);
@@ -48,4 +52,25 @@ public class LeadsPage extends BasePage {
         WebElement successMessage = driver.findElement(SUCCESS_MESSAGE);
         return successMessage.isDisplayed();
     }
+
+    @Step("Delete leads")
+    public void deleteLeads(String optionName) {
+        WebElement searchFieldToClick = driver.findElement(By.xpath(listLocator));
+        searchFieldToClick.click();
+        WebElement optionToClick = driver.findElement(By.xpath(String.format(optionLocator,optionName)));
+        optionToClick.click();
+    }
+
+
+    public void clickDeleteButton(){
+        driver.findElement(DELETE_BUTTON).click();
+    }
+
+    public int verifyElementNotOnPage(String name){
+        int numberOfElements = driver.findElements(LEADS_NAME).size();
+        return numberOfElements;
+    }
+
 }
+
+

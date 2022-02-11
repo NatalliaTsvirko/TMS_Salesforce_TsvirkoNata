@@ -14,7 +14,6 @@ public class Input extends BaseElement {
 
     public void write(String text) {
         log.info(String.format("Setting %s into %s input", text, label));
-        driver.findElement(By
-                .xpath(String.format(inputElementLocator, label))).sendKeys(text);
+        driver.findElement(By.xpath(String.format(inputElementLocator, label))).sendKeys(text);
     }
 }

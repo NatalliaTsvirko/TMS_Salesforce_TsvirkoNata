@@ -7,10 +7,13 @@ import lombok.extern.log4j.Log4j2;
 import models.Account;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import pages.AccountsPage;
 
 @Log4j2
 public class AccountModal extends BaseModal {
+    private String listLocator = "//span[text()='Parent Account']";
+    private String optionLocator = "//a[@role='option']//div[@title='%s']/ancestor::ul[@class='lookup__list  visible']";
 
     final static By SAVE_BUTTON = By.xpath("//*[@title='Save']");
 
@@ -35,12 +38,8 @@ public class AccountModal extends BaseModal {
             new Input(driver, "Website").write(account.getWebsite());
         }
 
-        if(account.getDescription()!= null){
+        if(account.getDescription()!=null){
             new TextArea(driver, "Description").write(account.getDescription());
-        }
-
-        if(account.getParentAccount()!= null){
-            new Input(driver, "Parent Account").write(account.getParentAccount());
         }
 
         if(account.getPhone()!= null){
@@ -95,6 +94,13 @@ public class AccountModal extends BaseModal {
             new Input(driver, "Shipping Country").write(account.getShippingCountry());
         }
         return this;
+    }
+
+    public void selectOption(String optionName) {
+        WebElement searchFieldToClick = driver.findElement(By.xpath(String.format(listLocator)));
+        searchFieldToClick.click();
+        WebElement optionToClick = driver.findElement(By.xpath(String.format(optionLocator, optionName)));
+        optionToClick.click();
     }
 
     public AccountsPage clickSaveButton() {

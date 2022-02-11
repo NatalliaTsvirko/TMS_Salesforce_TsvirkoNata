@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
+import pages.HomePage;
 import pages.LoginPage;
 import utils.PropertyReader;
 
@@ -15,9 +16,9 @@ public class BaseTest {
     String USERNAME = System.getenv().getOrDefault("USER_NAME", PropertyReader.getProperty("salesforce.username"));
     String PASSWORD = System.getenv().getOrDefault("USER_PASSWORD", PropertyReader.getProperty("salesforce.password"));
 
-
     protected WebDriver driver;
     protected LoginPage loginPage;
+    protected HomePage homePage;
 
     @Parameters({"browser"})
     @BeforeClass(alwaysRun = true)
@@ -30,6 +31,8 @@ public class BaseTest {
         driver.manage().timeouts().implicitlyWait(7, TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
         loginPage = new LoginPage(driver);
+        homePage = new HomePage(driver);
+
 
     }
 

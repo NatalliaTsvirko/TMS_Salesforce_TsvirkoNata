@@ -36,16 +36,15 @@ public class CreateContactTest extends BaseTest {
 
     @Test(description = "Create contact with all data", groups = {"Smoke"})
     public void createContactWithAllData() {
+        Contacts testContact = contactsGenerator.getContactsWithAllData();
         boolean isloggedIn = loginPage.open().login(USERNAME, PASSWORD).isPageOpened();
         assertTrue(isloggedIn);
         homePage.clickContactsMenuLink()
                 .clickNewButton();
-        contactsModal.selectOption("Schmeler-Rempel");
+        contactsModal.selectOption("Vinnie");
         AllureUtils.attachScreenshot(driver);
         log.info("waiting until nameAccount will be present");
-        ContactsModal testContact = contactsModal
-                .fillForm(contactsGenerator.getContactsWithAllData());
-        contactsModal.clickSaveButton();
+        contactsModal.fillForm(testContact).clickSaveButton();
         AllureUtils.attachScreenshot(driver);
         contactsPage.verifyNotificationMessage();
         Contacts actualContactsDetailsInfo = contactsPage.openDetailsTab()

@@ -14,4 +14,14 @@ public class LoginTest extends BaseTest {
         boolean isLoggedIn = loginPage.open().login(USERNAME, PASSWORD).isPageOpened();
         assertTrue(isLoggedIn);
     }
+
+    @Test(description = "logout user",groups = {"Smoke"})
+    public void logoutUser(){
+        boolean isLoggedIn = loginPage.open().login(USERNAME, PASSWORD).isPageOpened();
+        assertTrue(isLoggedIn);
+        homePage.clickProfileButton();
+        boolean isLogOut = homePage.clickLogoutLink();
+        assertTrue(isLogOut);
+
+    }
 }

@@ -11,7 +11,7 @@
         <classes>
             <class name="tests.LoginTest"></class>
             <class name="tests.CreateAccountTest"></class>
-            <class name="tests.CreateLeadsTest"></class>
+            <class name="tests.LeadsTest"></class>
         </classes>
     </test> <!-- Test -->
 </suite>

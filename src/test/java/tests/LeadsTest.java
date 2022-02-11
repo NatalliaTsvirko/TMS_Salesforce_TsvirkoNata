@@ -16,7 +16,7 @@ import static org.testng.AssertJUnit.assertEquals;
 
 
 @Log4j2
-public class CreateLeadsTest extends BaseTest {
+public class LeadsTest extends BaseTest {
 
     private String expectedMessage;
     HomePage homePage;
@@ -56,5 +56,19 @@ public class CreateLeadsTest extends BaseTest {
         assertEquals(actualMessage, expectedMessage);
 
     }
+
+    @Test(description = "Delete leads page", groups = {"Smoke"})
+    public void deleteLead(){
+        String leadName = "awef";
+        boolean isloggedIn = loginPage.open().login(USERNAME, PASSWORD).isPageOpened();
+        assertTrue(isloggedIn);
+        homePage.clickLeadsMenuLink();
+        leadsPage.deleteLeads(leadName);
+        leadsPage.clickDeleteButton();
+        int numberOfElements =leadsPage.verifyElementNotOnPage(leadName);
+        assertEquals(String.valueOf(numberOfElements), 0, "Element on page");
+
+    }
+
 }
 

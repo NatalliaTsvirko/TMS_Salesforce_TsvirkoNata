@@ -1,7 +1,6 @@
 package tests;
 
 
-import com.github.javafaker.Faker;
 import lombok.extern.log4j.Log4j2;
 import modals.AccountModal;
 import models.Account;
@@ -23,7 +22,6 @@ public class CreateAccountTest extends BaseTest {
     AccountsPage accountsPage;
     AccountDetailsPage accountDetailsPage;
     AccountModal accountModal;
-    Account testAccount;
     AccountsGenerator accountsGenerator;
 
 
@@ -36,17 +34,18 @@ public class CreateAccountTest extends BaseTest {
         accountsGenerator = new AccountsGenerator();
     }
 
-    @Test(description = "Create account with all data",groups = {"Smoke"})
+    @Test(description = "Create account with all data", groups = {"Smoke"})
     public void createAccountWithAllData() {
+        Account testAccount = accountsGenerator.getAccountWithAllData();
         boolean isloggedIn = loginPage.open().login(USERNAME, PASSWORD).isPageOpened();
         assertTrue(isloggedIn);
         AllureUtils.attachScreenshot(driver);
         log.info("opening account page");
         homePage.clickAccountMenuLink()
                 .clickNewButton();
+        accountModal.selectOption("Winston");
         log.info("fill account modal form with all data");
-        AccountModal testAccount = accountModal.fillForm(accountsGenerator.getAccountWithAllData());
-        accountModal .clickSaveButton();
+        accountModal.fillForm(testAccount).clickSaveButton();
         AllureUtils.attachScreenshot(driver);
         accountsPage.verifyNotificationMessage();
         Account actualAccountDetailsInfo = accountsPage.openDetailsTab()
@@ -54,26 +53,22 @@ public class CreateAccountTest extends BaseTest {
         assertEquals(actualAccountDetailsInfo, testAccount, "Account details don't match test account data");
     }
 
-    @Test(description = "Create account only with account name",groups = {"Negative"})
+    @Test(description = "Create account only with account name", groups = {"Negative"})
     public void createAccountWithAccountName() {
-        Faker faker = new Faker();
-        testAccount = Account.builder()
-                .accountName(faker.name().firstName())
-                .build();
+        Account testAccountName = accountsGenerator.getWithAccountName();
         boolean isloggedIn = loginPage.open().login(USERNAME, PASSWORD).isPageOpened();
         assertTrue(isloggedIn);
         AllureUtils.attachScreenshot(driver);
         log.info("opening account page and fill account modal form with account name");
         homePage.clickAccountMenuLink()
-                .clickNewButton()
-                .fillForm(testAccount)
-                .clickSaveButton();
+                .clickNewButton();
+        accountModal.fillForm(testAccountName).clickSaveButton();
         AllureUtils.attachScreenshot(driver);
         log.info("verify notification message");
         accountsPage.verifyNotificationMessage();
         Account actualAccountDetailsInfo = accountsPage.openDetailsTab()
                 .getAccountDetailsInfo();
-        assertEquals(actualAccountDetailsInfo, testAccount, "Account details don't match test account data");
+        assertEquals(actualAccountDetailsInfo, testAccountName, "Account details don't match test account data");
     }
 
 }

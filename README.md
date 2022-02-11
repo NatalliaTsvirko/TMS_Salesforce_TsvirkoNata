@@ -42,7 +42,7 @@ To run CreateAccountTest tests use the command:
 
 -mvn clean test -Dtest=CreateAccountTest test
 
-command result: Tests run: 2, Failures: 2, Errors: 0, Skipped: 0;
+command result: Tests run: , Failures: , Errors: 0, Skipped: 0;
 
 To run CreateContactTest tests use the command:
 
